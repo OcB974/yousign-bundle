@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
+    <php>
+        <server name="KERNEL_DIR" value="Tests/App" />
+        <server name="KERNEL_CLASS" value="AppKernel" />
+
+        <env name="YOUSIGN_BASE_URL" value="yousign-base-url"/>
+        <env name="YOUSIGN_API_KEY" value="your-api-key"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="YousignBundle test suite">
+            <directory suffix="Test.php">./Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./Resources</directory>
+                <directory>./Tests</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

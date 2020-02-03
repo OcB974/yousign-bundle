@@ -1,0 +1,4 @@
+
+neyric_yousign:
+    path: /yousign_webook/hook_handler
+    controller: Neyric\YousignBundle\Controller\YousignController::webhookHandlerAction

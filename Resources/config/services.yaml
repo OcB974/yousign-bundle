@@ -1,0 +1,21 @@
+services:
+
+    Neyric\YousignBundle\Service\YousignApiClient:
+        class: Neyric\YousignBundle\Service\YousignApiClient
+        arguments:
+            - '%env(YOUSIGN_BASE_URL)%'
+            - '%env(YOUSIGN_API_KEY)%'
+
+
+    neyric_yousign.service:
+        alias: Neyric\YousignBundle\Service\YousignApiClient
+        public: true
+
+    # Autowiring to provide access to logger
+    Neyric\YousignBundle\Controller\YousignController:
+        public: true
+        arguments:
+            - '@event_dispatcher'
+            - '@logger'
+        tags:
+            - { name: monolog.logger }
