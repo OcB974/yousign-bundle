@@ -2,7 +2,7 @@
 
 namespace Neyric\YousignBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +12,7 @@ use Neyric\YousignBundle\Event\WebhookEvent;
 
 use Psr\Log\LoggerInterface;
 
-class YousignController extends Controller
+class YousignController extends AbstractController
 {
     private $eventDispatcher;
     private $logger;
