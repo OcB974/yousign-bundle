@@ -2,7 +2,7 @@
 
 namespace Neyric\YousignBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
 
 class WebhookEvent extends Event
