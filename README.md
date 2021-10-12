@@ -8,8 +8,8 @@ A Symfony bundle for [Yousign](https://yousign.com/).
 
 ## Requirements
 
-* Php 7.1
-* Symfony 4.4
+* Php >= 7.1
+* Symfony 4.4 or 5+
 
 ## Installation
 
