@@ -74,4 +74,24 @@ class YousignApiClient
     {
         return $this->postRequest($this->baseUrl . '/procedures', $procedure)->toArray();
     }
+
+    /**
+     * @param string $procedureId
+     *
+     * @return array
+     */
+    public function getFile($procedureId)
+    {
+        return $this->getRequest($this->baseUrl . '/files/' . $procedureId)->toArray();
+    }
+
+    /**
+     * @param string $procedureId
+     *
+     * @return array
+     */
+    public function downloadFile($procedureId)
+    {
+        return $this->getRequest($this->baseUrl . '/files/' . $procedureId .'/download')->toArray();
+    }
 }
