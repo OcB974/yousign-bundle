@@ -14,7 +14,6 @@ class YousignControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-
         // Access the kernel container (booted from createClient)
         $container = static::$kernel->getContainer();
 
@@ -23,16 +22,21 @@ class YousignControllerTest extends WebTestCase
         $listener = new TestWebhookListener();
         $dispatcher->addListener(WebhookEvent::class, [$listener, 'onWebhookEvent']);
 
+        /** @var string $content */
+        $content = file_get_contents(__DIR__ . '/../data/sample-webhook.json');
 
-        $client->request('GET', '/yousign_webook/hook_handler');
+        $client->request('POST', '/yousign_webook/hook_handler', [], [], [], $content);
 
-        // $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful();
 
         $this->assertTrue($listener->onWebhookEventInvoked);
 
+        // TODO: improve tests on headers
         $event = $listener->event;
-        $event->getHeaders();
+        // $event->getHeaders();
 
+        $content = $event->getContent();
+        $this->assertEquals("/procedures/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX", $content['id']);
+        $this->assertEquals("/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX", $content['files'][0]['id']);
     }
 }

@@ -76,22 +76,22 @@ class YousignApiClient
     }
 
     /**
-     * @param string $procedureId
+     * @param string $fileId
      *
      * @return array
      */
-    public function getFile($procedureId)
+    public function getFile($fileId)
     {
-        return $this->getRequest($this->baseUrl . '/files/' . $procedureId)->toArray();
+        return $this->getRequest($this->baseUrl . '/files/' . $fileId)->toArray();
     }
 
     /**
-     * @param string $procedureId
+     * @param string $fileId
      *
-     * @return array
+     * @return string
      */
-    public function downloadFile($procedureId)
+    public function downloadFile($fileId, $binary = false)
     {
-        return $this->getRequest($this->baseUrl . '/files/' . $procedureId .'/download')->toArray();
+        return $this->getRequest($this->baseUrl . '/files/' . $fileId .'/download' . ($binary ? "?alt=media" : "") )->getContent();
     }
 }
