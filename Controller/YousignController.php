@@ -25,12 +25,22 @@ class YousignController
     public function webhookHandlerAction(Request $request): JsonResponse
     {
         $headers = $request->headers->all();
-        $this->logger->debug("Yousign webhook headers", $headers);
 
-        $event = new WebhookEvent($headers);
+        /** @var array|false $webhookBody */
+        $webhookBody = json_decode($request->getContent(), true);
+        if ($webhookBody === false) {
+            // TODO
+        }
+
+        $this->logger->debug("Yousign webhook headers", [
+            'headers' => $headers,
+            'content' => $webhookBody,
+        ]);
+
+        $event = new WebhookEvent($headers, $webhookBody);
         $this->eventDispatcher->dispatch($event);
 
-        return JsonResponse::create([
+        return new JsonResponse([
             'success' => true
         ]);
     }
