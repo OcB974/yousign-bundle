@@ -29,7 +29,12 @@ class YousignController
         /** @var array|false $webhookBody */
         $webhookBody = json_decode($request->getContent(), true);
         if ($webhookBody === false) {
-            // TODO
+            $this->logger->error("Unable to parse JSON body content", [
+                'content' => $request->getContent()
+            ]);
+            return new JsonResponse([
+                'success' => false
+            ]);
         }
 
         $this->logger->debug("Yousign webhook headers", [
