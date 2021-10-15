@@ -96,19 +96,19 @@ class YousignApiClient
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getProcedures()
     {
-        return $this->getRequest($this->baseUrl . '/procedures')->getContent();
+        return $this->getRequest($this->baseUrl . '/procedures')->toArray();
     }
 
     /**
      * @param string $procedureId
-     * @return string
+     * @return array
      */
     public function getProcedure($procedureId)
     {
-        return $this->getRequest($this->baseUrl . '/procedures/' . $procedureId)->getContent();
+        return $this->getRequest($this->baseUrl . '/procedures/' . $procedureId)->toArray();
     }
 }
