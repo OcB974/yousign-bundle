@@ -102,4 +102,13 @@ class YousignApiClient
     {
         return $this->getRequest($this->baseUrl . '/procedures')->getContent();
     }
+
+    /**
+     * @param string $procedureId
+     * @return string
+     */
+    public function getProcedure($procedureId)
+    {
+        return $this->getRequest($this->baseUrl . '/procedures/' . $procedureId)->getContent();
+    }
 }
