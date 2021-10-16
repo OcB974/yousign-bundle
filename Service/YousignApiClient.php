@@ -94,4 +94,21 @@ class YousignApiClient
     {
         return $this->getRequest($this->baseUrl . '/files/' . $fileId .'/download' . ($binary ? "?alt=media" : "") )->getContent();
     }
+
+    /**
+     * @return array
+     */
+    public function getProcedures()
+    {
+        return $this->getRequest($this->baseUrl . '/procedures')->toArray();
+    }
+
+    /**
+     * @param string $procedureId
+     * @return array
+     */
+    public function getProcedure($procedureId)
+    {
+        return $this->getRequest($this->baseUrl . '/procedures/' . $procedureId)->toArray();
+    }
 }
