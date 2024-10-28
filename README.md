@@ -1,23 +1,23 @@
-Yousign Bundle for Symfony [![Build Status](https://travis-ci.org/ericabouaf/yousign-bundle.svg?branch=master)](https://travis-ci.org/ericabouaf/yousign-bundle) [![Latest Stable Version](https://poser.pugx.org/neyric/yousign-bundle/v/stable)](https://packagist.org/packages/neyric/yousign-bundle) [![Total Downloads](https://poser.pugx.org/neyric/yousign-bundle/downloads)](https://packagist.org/packages/neyric/yousign-bundle) [![License](https://poser.pugx.org/neyric/yousign-bundle/license)](https://packagist.org/packages/neyric/yousign-bundle)
+Yousign Bundle for Symfony
 =================================================
+### This is a fork for allow Symfony 7 & PHP 8 min
 
-A Symfony bundle for [Yousign](https://yousign.com/).
-
+* A Symfony bundle for [Yousign](https://yousign.com/).
 * Provide a service to access the API for a better Symfony integration
 * Webhook handler (HTTP controller) + Webhook Event
 
 ## Requirements
 
-* Php >= 7.1
-* Symfony 4.4 or 5+
+* PHP >= 8.1
+* Symfony 5 / 6 / 7
 
 ## Installation
 
 ```console
-$ composer require neyric/yousign-bundle
+$ composer require ocb974/yousign-bundle
 ```
 
-Load the bundle in your app
+Load the bundle in your app if not case
 
 ```php
 $bundles = [

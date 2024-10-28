@@ -2,24 +2,16 @@
 
 namespace Neyric\YousignBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-
 use Neyric\YousignBundle\Event\WebhookEvent;
-
 use Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class YousignController
 {
-    private $eventDispatcher;
-    private $logger;
-
-    public function __construct(EventDispatcherInterface $eventDispatcher, LoggerInterface $logger)
+    public function __construct(private readonly EventDispatcherInterface $eventDispatcher, private readonly LoggerInterface $logger)
     {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->logger = $logger;
     }
 
     public function webhookHandlerAction(Request $request): JsonResponse
@@ -28,16 +20,17 @@ class YousignController
 
         /** @var array|false $webhookBody */
         $webhookBody = json_decode($request->getContent(), true);
-        if ($webhookBody === false) {
-            $this->logger->error("Unable to parse JSON body content", [
-                'content' => $request->getContent()
+        if (false === $webhookBody) {
+            $this->logger->error('Unable to parse JSON body content', [
+                'content' => $request->getContent(),
             ]);
+
             return new JsonResponse([
-                'success' => false
+                'success' => false,
             ]);
         }
 
-        $this->logger->debug("Yousign webhook headers", [
+        $this->logger->debug('Yousign webhook headers', [
             'headers' => $headers,
             'content' => $webhookBody,
         ]);
@@ -46,7 +39,7 @@ class YousignController
         $this->eventDispatcher->dispatch($event);
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 }

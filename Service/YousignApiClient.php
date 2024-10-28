@@ -3,112 +3,141 @@
 namespace Neyric\YousignBundle\Service;
 
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class YousignApiClient
 {
-    private $baseUrl;
+    private string $baseUrl;
 
-    private $httpClient;
+    private HttpClientInterface $httpClient;
 
     /**
-     * YousignApiClient constructor
-     *
-     * @param string $baseUrl
-     * @param string $apiSecret
+     * YousignApiClient constructor.
      */
-    public function __construct($baseUrl, $apiSecret)
+    public function __construct(string $baseUrl, string $apiSecret)
     {
         $this->baseUrl = $baseUrl;
 
         $this->httpClient = HttpClient::create([
             'headers' => [
-                'Authorization' => 'Bearer ' . $apiSecret,
-                'Content-Type' => 'application/json'
-            ]
+                'Authorization' => 'Bearer '.$apiSecret,
+                'Content-Type' => 'application/json',
+            ],
         ]);
     }
 
-
-    private function getRequest($url, $queryParameters = [])
+    private function getRequest(string $url, array $queryParameters = []): ResponseInterface
     {
         return $this->httpClient->request('GET', $url, [
-            'query' => $queryParameters
+            'query' => $queryParameters,
         ]);
     }
 
-    private function postRequest($url, $args = [])
+    private function postRequest($url, $args = []): ResponseInterface
     {
         return $this->httpClient->request('POST', $url, [
-            'json' => $args
+            'json' => $args,
         ]);
     }
 
-    public function getUsers()
+    public function getUsers(): array
     {
-        return $this->getRequest($this->baseUrl . '/users')->toArray();
+        return $this->getRequest($this->baseUrl.'/users')->toArray();
     }
 
     /**
-     * @var string $filename
-     * @var string $content (base64 without the base64 header)
-     *
+     * @param string $filename
+     * @param string $content
      * @return array
+     *
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function createNewFile($filename, $content)
+    public function createNewFile(string $filename, string $content): array
     {
         $args = [
             'name' => $filename,
-            'content' => $content
+            'content' => $content,
         ];
 
-        return $this->postRequest($this->baseUrl . '/files', $args)->toArray();
+        return $this->postRequest($this->baseUrl.'/files', $args)->toArray();
     }
-    
 
     /**
-     * @param array $procedure
-     *
+     * @param $procedure
      * @return array
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function createProcedure($procedure)
+    public function createProcedure($procedure): array
     {
-        return $this->postRequest($this->baseUrl . '/procedures', $procedure)->toArray();
+        return $this->postRequest($this->baseUrl.'/procedures', $procedure)->toArray();
     }
 
     /**
      * @param string $fileId
-     *
      * @return array
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function getFile($fileId)
+    public function getFile(string $fileId): array
     {
-        return $this->getRequest($this->baseUrl . '/files/' . $fileId)->toArray();
+        return $this->getRequest($this->baseUrl.'/files/'.$fileId)->toArray();
     }
 
     /**
      * @param string $fileId
-     *
+     * @param bool $binary
      * @return string
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function downloadFile($fileId, $binary = false)
+    public function downloadFile(string $fileId, bool $binary = false): string
     {
-        return $this->getRequest($this->baseUrl . '/files/' . $fileId .'/download' . ($binary ? "?alt=media" : "") )->getContent();
+        return $this->getRequest($this->baseUrl.'/files/'.$fileId.'/download'.($binary ? '?alt=media' : ''))->getContent();
     }
 
     /**
      * @return array
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function getProcedures()
+    public function getProcedures(): array
     {
-        return $this->getRequest($this->baseUrl . '/procedures')->toArray();
+        return $this->getRequest($this->baseUrl.'/procedures')->toArray();
     }
 
     /**
-     * @param string $procedureId
+     * @param $procedureId
      * @return array
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function getProcedure($procedureId)
+    public function getProcedure($procedureId): array
     {
-        return $this->getRequest($this->baseUrl . '/procedures/' . $procedureId)->toArray();
+        return $this->getRequest($this->baseUrl.'/procedures/'.$procedureId)->toArray();
     }
 }

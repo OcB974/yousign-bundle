@@ -7,13 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WebhookEvent extends Event
 {
-    protected $headers;
-    protected $content;
+    protected array $headers;
+    protected array $content;
 
     /**
      * WebhookEvent constructor.
      *
      * @param array $headers
+     * @param array $content
      */
     public function __construct(array $headers, array $content)
     {
@@ -21,18 +22,12 @@ class WebhookEvent extends Event
         $this->content = $content;
     }
 
-    /**
-     * @return array
-     */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
-    /**
-     * @return array
-     */
-    public function getContent()
+    public function getContent(): array
     {
         return $this->content;
     }
