@@ -1,8 +1,8 @@
 {
-    "name": "neyric/yousign-bundle",
+    "name": "ocb974/yousign-bundle",
     "description": "Yousign Bundle for Symfony",
     "keywords": ["symfony","yousign"],
-    "homepage": "https://github.com/neyric/yousign-bundle",
+    "homepage": "https://github.com/ocb974/yousign-bundle",
     "type": "symfony-bundle",
     "require": {
         "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^7.1",
