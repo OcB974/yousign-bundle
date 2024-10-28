@@ -5,13 +5,13 @@
     "homepage": "https://github.com/neyric/yousign-bundle",
     "type": "symfony-bundle",
     "require": {
-        "symfony/framework-bundle": "^4.4 || ^5.0",
-        "symfony/event-dispatcher": "^4.4 || ^5.0",
-        "symfony/yaml": "^4.4 || ^5.0",
-        "symfony/http-client": "^4.4 || ^5.0"
+        "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^7.1",
+        "symfony/event-dispatcher": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^7.1",
+        "symfony/yaml": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^7.1",
+        "symfony/http-client": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^7.1"
     },
     "require-dev": {
-        "symfony/browser-kit": "^4.4 || ^5.0",
+        "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^7.1",
         "phpunit/phpunit": ">=6.0"
     },
     "autoload" : {
